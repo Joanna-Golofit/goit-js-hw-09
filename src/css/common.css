@@ -16,3 +16,25 @@ img {
   display: block;
   max-width: 100%;
 }
+ #date-selector {
+  font-size: 28px;
+}
+button {
+  font-size: 30px;
+}
+.timer {
+  text-transform: uppercase;
+  display: flex;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 22px;
+}
+.value {
+  padding-top: 20px;
+  font-size: 50px;
+  font-weight: 500;
+}
