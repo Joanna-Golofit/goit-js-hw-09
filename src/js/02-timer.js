@@ -7,6 +7,25 @@ Notiflix.Notify.failure('Failure message text');
 Notiflix.Notify.warning('Warning message text');
 Notiflix.Notify.info('Info message text');
 
+//znajdowanie elementów za pomocą dowolnego selektora CSS
+const calendar = document.querySelector('input#date-selector');
+const btnStart = document.querySelector('button[data-start]');
+const btnStop = document.querySelector('button[data-stop]');
+const daysLeft = document.querySelector('span[data-days]');
+const hoursLeft = document.querySelector('span[data-hours]');
+const minutesLeft = document.querySelector('span[data-minutes]');
+const secondsLeft = document.querySelector('span[data-seconds]');
+
+btnStart.disabled = true;
+btnStop.disabled = true;
+
+
+btnStart.addEventListener('click', () => {
+  timerId = setInterval(changeBgColor, 1000);
+  btnStop.disabled = false;
+  btnStart.disabled = true;
+});
+
 
 
 // Drugim argumentem funkcji flatpickr(selector, options) można przekazać nieobowiązkowy obiekt parametrów. Przygotowaliśmy dla Ciebie obiekt, który jest niezbędny do wykonania zadania. Zorientuj się, za co odpowiada każda właściwość w dokumentacji «Options» i użyj jej w swoim kodzie.
@@ -18,6 +37,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
+    //zmodyfikowac tu
   },
 };
 
