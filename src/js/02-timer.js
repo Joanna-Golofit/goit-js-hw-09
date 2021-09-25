@@ -47,26 +47,25 @@ let currentValue = '';
 btnStart.disabled = true;
 btnStop.disabled = true;
 
-
-const checkChosenDate = () => {
+const checkChosenDate = timeChosen => {
   if (timeDiff <= 0) {
     Notiflix.Notify.failure('Please choose a date in the future');
     // return;
-    
-    console.log('checkChosenDate if timeChosen', timeChosen); // 0
-    console.log('timeChosen[0]', timeChosen[0]); //undefined
+    // w on close przekazalam do funkcji checkChosenDate argument time chosen i zaczelo sie wyswietlac, ale do tych funkcji w addEventListerer nie moge ich przekazac
+    console.log('checkChosenDate if timeChosen: 0:', timeChosen); // bylo 0
+    console.log('timeChosen[0]: undefined:', timeChosen[0]); // bylo undefined
     console.log('timeNow', timeNow);
     console.log('timeDiff', timeDiff);
   } else {
     Notiflix.Notify.info('Now you can click "Start"');
     btnStart.disabled = false;
-    
+
     console.log('checkChosenDate else timeChosen', timeChosen); // 0
     console.log('timeChosen[0]', timeChosen[0]); //undefined
     console.log('timeNow', timeNow);
     console.log('timeDiff', timeDiff);
   }
-}
+};
 
 const updateTimer = ({ days, hours, minutes, seconds }) => {
   daysLeft.innerHTML = addLeadingZero(days);
@@ -76,7 +75,7 @@ const updateTimer = ({ days, hours, minutes, seconds }) => {
   secondsLeft.innerHTML = addLeadingZero(seconds);
 }
 
-const clearTimer = ({ days, hours, minutes, seconds }) => {
+const clearTimer = () => {
   daysLeft.innerHTML = '00';
   // console.log('daysLeft', days);
   hoursLeft.innerHTML = '00';
@@ -96,9 +95,10 @@ const startCountdown = () => {
   btnStart.disabled = true;
 };
 
-const stopCountdown = () => {
+const stopCountdown = timeChosen => {
   // timerId = setInterval(changeBgColor, 1000);
   console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+  clearTimer();
   btnStart.disabled = false;
   btnStop.disabled = true;
 };
@@ -132,21 +132,25 @@ const options = {
     timeDiff = timeChosen[0] - timeNow;
     console.log('onClose roznica w ms timeDiff:', timeDiff);
     console.log('onClose convertMs(timeDiff)', convertMs(timeDiff));
-    // daysLeft.innerHTML = 5;
-    checkChosenDate();
+    checkChosenDate(timeChosen);
 
     // updateTimer(convertMs(timeDiff));   // raczej nie tu
     // https://flatpickr.js.org/options/  o opcjach
   },
 };
 
-
 // flatpickr - uruchomienie:
 flatpickr('#date-selector', options);
 
 btnStart.addEventListener('click', startCountdown);
-
 btnStop.addEventListener('click', stopCountdown);
+
+
+
+
+
+
+
 
 // =====================juz zbedne logi przykladowe================
 // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
