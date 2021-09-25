@@ -41,8 +41,9 @@ const secondsLeft = document.querySelector('span[data-seconds]');
 let timeNow = new Date().getTime(); // w milisekundach
 let timeChosen = 0;
 let timeDiff = 0;
-let timeRemaining = 0;
-let currentValue = '';
+let timerId = null;
+
+console.log("timeNow", timeNow);
 
 btnStart.disabled = true;
 btnStop.disabled = true;
@@ -68,6 +69,7 @@ const checkChosenDate = timeChosen => {
 };
 
 const updateTimer = ({ days, hours, minutes, seconds }) => {
+  // timeDiff -= 1000;
   daysLeft.innerHTML = addLeadingZero(days);
   // console.log('daysLeft', days);
   hoursLeft.innerHTML = addLeadingZero(hours);
@@ -76,6 +78,9 @@ const updateTimer = ({ days, hours, minutes, seconds }) => {
 }
 
 const clearTimer = () => {
+  clearInterval(timerId);
+  console.log('stopCountdown timerId', timerId);
+
   daysLeft.innerHTML = '00';
   // console.log('daysLeft', days);
   hoursLeft.innerHTML = '00';
@@ -87,20 +92,27 @@ const addLeadingZero = (value) => {
   return value.toString().padStart(2, "0");
 }
 
+// const updateTime = timeChosen => {
+//   timeChosen - timeNow;
+// };
+
 const startCountdown = () => {
-  // timerId = setInterval(changeBgColor, 1000);
-  updateTimer(convertMs(timeDiff));
-  console.log('btnStart.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+  timerId = setInterval(updateTimer(convertMs(timeDiff)), 1000);
+  console.log('timerId', timerId);
+  // updateTimer(convertMs(timeDiff));  //dalam to do interwalu
+  console.log('btnStart.addEventListener timeChosen[0]', timeChosen[0]); // ciagle undefined mimo prob przekazania parametru
+  console.log('btnStart.addEventListener timeDiff', timeDiff); // dziala
+
   btnStop.disabled = false;
   btnStart.disabled = true;
-};
+};;
 
-const stopCountdown = timeChosen => {
-  // timerId = setInterval(changeBgColor, 1000);
-  console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+const stopCountdown = () => {  
+  console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // ciagle undefined mimo prob przekazania parametru
   clearTimer();
   btnStart.disabled = false;
   btnStop.disabled = true;
+  // clearInterval(timerId);
 };
 
 const convertMs = (ms) => {
