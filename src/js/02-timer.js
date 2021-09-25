@@ -44,22 +44,10 @@ let timeDiff = 0;
 let timeRemaining = 0;
 let currentValue = '';
 
+
 btnStart.disabled = true;
 btnStop.disabled = true;
 
-btnStart.addEventListener('click', () => {
-  // timerId = setInterval(changeBgColor, 1000);
-  btnStop.disabled = false;
-  btnStart.disabled = true;
-  updateTimer(convertMs(timeDiff));
-});
-
-btnStop.addEventListener('click', () => {
-  // timerId = setInterval(changeBgColor, 1000);
-  btnStart.disabled = false;
-  btnStop.disabled = true;
-  console.log('timeChosen[0]', timeChosen[0]); // undefined
-});
 
 // Drugim argumentem funkcji flatpickr(selector, options)
 // można przekazać nieobowiązkowy obiekt parametrów.Przygotowaliśmy
@@ -79,7 +67,7 @@ function convertMs(ms) {
   const hours = Math.floor((ms % day) / hour);
   const minutes = Math.floor(((ms % day) % hour) / minute);
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
+  
   return { days, hours, minutes, seconds };
 }
 
@@ -94,11 +82,11 @@ const options = {
     console.log('onClose timeChosen wybrano (obiekt):', timeChosen);
     //zmodyfikowac tu
     timeDiff = timeChosen[0] - timeNow;
-    console.log('onClose roznica w ms:', timeDiff);
-    console.log('onClose convertMs', convertMs(timeDiff));
+    console.log('onClose roznica w ms timeDiff:', timeDiff);
+    console.log('onClose convertMs(timeDiff)', convertMs(timeDiff));
     // daysLeft.innerHTML = 5;
     checkChosenDate();
-
+    
     // updateTimer(convertMs(timeDiff));
   },
 };
@@ -106,6 +94,28 @@ const options = {
 
 // flatpickr - uruchomienie:
 flatpickr('#date-selector', options);
+
+
+
+function checkChosenDate() {
+  if (timeDiff <= 0) {
+    Notiflix.Notify.failure('Please choose a date in the future');
+    // return;
+    
+    // console.log('checkChosenDate if timeChosen', timeChosen); // 0
+    // console.log('timeChosen[0]', timeChosen[0]); //undefined
+    // console.log('timeNow', timeNow);
+    // console.log('timeDiff', timeDiff);
+  } else {
+    Notiflix.Notify.info('Now you can click "Start"');
+    btnStart.disabled = false;
+    
+    // console.log('checkChosenDate else timeChosen', timeChosen); // 0
+    // console.log('timeChosen[0]', timeChosen[0]); //undefined
+    // console.log('timeNow', timeNow);
+    // console.log('timeDiff', timeDiff);
+  }
+}
 
 function updateTimer({ days, hours, minutes, seconds }) {
   daysLeft.innerHTML = days;
@@ -115,25 +125,25 @@ function updateTimer({ days, hours, minutes, seconds }) {
   secondsLeft.innerHTML = seconds;
 }
 
-function checkChosenDate() {
-  if (timeDiff <= 0) {
-    Notiflix.Notify.failure('Please choose a date in the future');
-    // return;
-
-    // console.log('checkChosenDate if timeChosen', timeChosen); // 0
-    // console.log('timeChosen[0]', timeChosen[0]); //undefined
-    // console.log('timeNow', timeNow);
-    // console.log('timeDiff', timeDiff);
-  } else {
-    Notiflix.Notify.info('Now you can click "Start"');
-    btnStart.disabled = false;
-
-    // console.log('checkChosenDate else timeChosen', timeChosen); // 0
-    // console.log('timeChosen[0]', timeChosen[0]); //undefined
-    // console.log('timeNow', timeNow);
-    // console.log('timeDiff', timeDiff);
-  }
+function addLeadingZero(value) {
+  return value.toString().padStart(2, "0");
 }
+
+btnStart.addEventListener('click', () => {
+  // timerId = setInterval(changeBgColor, 1000);
+  btnStop.disabled = false;
+  btnStart.disabled = true;
+  updateTimer(convertMs(timeDiff));
+  console.log('btnStart.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+
+});
+
+btnStop.addEventListener('click', () => {
+  // timerId = setInterval(changeBgColor, 1000);
+  btnStart.disabled = false;
+  btnStop.disabled = true;
+  console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+});
 
 // =====================juz zbedne logi przykladowe================
 // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
