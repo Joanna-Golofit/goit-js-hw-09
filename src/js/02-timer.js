@@ -3,6 +3,27 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 // import { Notify, Report, Confirm, Loading, Block } from 'notiflix';
 
+ Notiflix.Notify.init({
+   position: 'right-bottom',
+   borderRadius: '22px',
+   width: '480px',
+   fontSize: '28px',
+   distance: '15px',
+   opacity: 0.5,
+   success: {
+     notiflixIconColor: 'rgba(0,0,0,0.983)',
+     background: '#056923'
+   },
+   failure: {
+     notiflixIconColor: 'rgba(0,0,0,0.983)',
+     background: '#f91909',
+   },
+   info: {
+     notiflixIconColor: 'rgba(0,0,0,0.983)',
+     background: '#014c84'
+   },
+ });
+
 // Notiflix.Notify.success('Success message text');
 // Notiflix.Notify.failure('Failure message text');
 // Notiflix.Notify.warning('Warning message text');
@@ -31,7 +52,6 @@ btnStart.addEventListener('click', () => {
   btnStop.disabled = false;
   btnStart.disabled = true;
   updateTimer(convertMs(timeDiff));
-
 });
 
 btnStop.addEventListener('click', () => {
@@ -96,7 +116,7 @@ function updateTimer({ days, hours, minutes, seconds }) {
 }
 
 function checkChosenDate() {
-  if (timeDiff <= 0) {    
+  if (timeDiff <= 0) {
     Notiflix.Notify.failure('Please choose a date in the future');
     // return;
 
@@ -107,7 +127,7 @@ function checkChosenDate() {
   } else {
     Notiflix.Notify.info('Now you can click "Start"');
     btnStart.disabled = false;
-    
+
     // console.log('checkChosenDate else timeChosen', timeChosen); // 0
     // console.log('timeChosen[0]', timeChosen[0]); //undefined
     // console.log('timeNow', timeNow);
