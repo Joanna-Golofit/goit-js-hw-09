@@ -95,7 +95,14 @@ const addLeadingZero = (value) => {
 const startCountdown = () => {
   timerId = setInterval(() => {
     timeDiff -= 1000;
-    updateTimer(convertMs(timeDiff))
+    if (timeDiff < 1000) {
+      Notiflix.Report.success('the end!',
+        'You know nothing',
+        'Close');
+      stopCountdown();
+    } else {
+      updateTimer(convertMs(timeDiff));
+    }
   }, 1000);
   console.log('timerId', timerId);
   // updateTimer(convertMs(timeDiff));  //dalam to do interwalu
