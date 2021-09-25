@@ -44,80 +44,31 @@ let timeDiff = 0;
 let timeRemaining = 0;
 let currentValue = '';
 
-
 btnStart.disabled = true;
 btnStop.disabled = true;
 
 
-// Drugim argumentem funkcji flatpickr(selector, options)
-// można przekazać nieobowiązkowy obiekt parametrów.Przygotowaliśmy
-// dla Ciebie obiekt, który jest niezbędny do wykonania zadania.
-// Zorientuj się, za co odpowiada każda właściwość w dokumentacji
-// «Options» i użyj jej w swoim kodzie.
-
-function convertMs(ms) {
-  // Number of milliseconds per unit of time
-  const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-
-  // Remaining days etc
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-  return { days, hours, minutes, seconds };
-}
-
-const options = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  weekNumbers: true,
-  onClose(timeChosen) {
-    console.log('onClose timeChosen[0] wybrano (string):', timeChosen[0]);
-    console.log('onClose timeChosen wybrano (obiekt):', timeChosen);
-    //zmodyfikowac tu
-    timeDiff = timeChosen[0] - timeNow;
-    console.log('onClose roznica w ms timeDiff:', timeDiff);
-    console.log('onClose convertMs(timeDiff)', convertMs(timeDiff));
-    // daysLeft.innerHTML = 5;
-    checkChosenDate();
-    
-    // updateTimer(convertMs(timeDiff));
-  },
-};
-// https://flatpickr.js.org/options/  o opcjach
-
-// flatpickr - uruchomienie:
-flatpickr('#date-selector', options);
-
-
-
-function checkChosenDate() {
+const checkChosenDate = () => {
   if (timeDiff <= 0) {
     Notiflix.Notify.failure('Please choose a date in the future');
     // return;
     
-    // console.log('checkChosenDate if timeChosen', timeChosen); // 0
-    // console.log('timeChosen[0]', timeChosen[0]); //undefined
-    // console.log('timeNow', timeNow);
-    // console.log('timeDiff', timeDiff);
+    console.log('checkChosenDate if timeChosen', timeChosen); // 0
+    console.log('timeChosen[0]', timeChosen[0]); //undefined
+    console.log('timeNow', timeNow);
+    console.log('timeDiff', timeDiff);
   } else {
     Notiflix.Notify.info('Now you can click "Start"');
     btnStart.disabled = false;
     
-    // console.log('checkChosenDate else timeChosen', timeChosen); // 0
-    // console.log('timeChosen[0]', timeChosen[0]); //undefined
-    // console.log('timeNow', timeNow);
-    // console.log('timeDiff', timeDiff);
+    console.log('checkChosenDate else timeChosen', timeChosen); // 0
+    console.log('timeChosen[0]', timeChosen[0]); //undefined
+    console.log('timeNow', timeNow);
+    console.log('timeDiff', timeDiff);
   }
 }
 
-function updateTimer({ days, hours, minutes, seconds }) {
+const updateTimer = ({ days, hours, minutes, seconds }) => {
   daysLeft.innerHTML = days;
   // console.log('daysLeft', days);
   hoursLeft.innerHTML = hours;
@@ -125,7 +76,15 @@ function updateTimer({ days, hours, minutes, seconds }) {
   secondsLeft.innerHTML = seconds;
 }
 
-function addLeadingZero(value) {
+const clearTimer = ({ days, hours, minutes, seconds }) => {
+  daysLeft.innerHTML = '00';
+  // console.log('daysLeft', days);
+  hoursLeft.innerHTML = '00';
+  minutesLeft.innerHTML = '00';
+  secondsLeft.innerHTML = '00';
+}
+
+const addLeadingZero = (value) => {
   return value.toString().padStart(2, "0");
 }
 
@@ -143,6 +102,47 @@ const stopCountdown = () => {
   btnStart.disabled = false;
   btnStop.disabled = true;
 };
+
+const convertMs = (ms) => {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days etc
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  weekNumbers: true,
+  onClose(timeChosen) {
+    console.log('onClose timeChosen[0] wybrano (string):', timeChosen[0]);
+    console.log('onClose timeChosen wybrano (obiekt):', timeChosen);
+    //zmodyfikowac i tu pododawac funkcje
+    timeDiff = timeChosen[0] - timeNow;
+    console.log('onClose roznica w ms timeDiff:', timeDiff);
+    console.log('onClose convertMs(timeDiff)', convertMs(timeDiff));
+    // daysLeft.innerHTML = 5;
+    checkChosenDate();
+
+    // updateTimer(convertMs(timeDiff));   // raczej nie tu
+    // https://flatpickr.js.org/options/  o opcjach
+  },
+};
+
+
+// flatpickr - uruchomienie:
+flatpickr('#date-selector', options);
 
 btnStart.addEventListener('click', startCountdown);
 
