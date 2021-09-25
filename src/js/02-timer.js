@@ -80,7 +80,7 @@ const updateTimer = ({ days, hours, minutes, seconds }) => {
 const clearTimer = () => {
   // clearInterval(timerId);
   console.log('stopCountdown timerId', timerId);
-
+  timeDiff = 0;
   daysLeft.innerHTML = '00';
   // console.log('daysLeft', days);
   hoursLeft.innerHTML = '00';
