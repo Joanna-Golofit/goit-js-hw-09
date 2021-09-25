@@ -30,13 +30,15 @@ btnStart.addEventListener('click', () => {
   // timerId = setInterval(changeBgColor, 1000);
   btnStop.disabled = false;
   btnStart.disabled = true;
+  updateTimer(convertMs(timeDiff));
+
 });
 
 btnStop.addEventListener('click', () => {
   // timerId = setInterval(changeBgColor, 1000);
   btnStart.disabled = false;
   btnStop.disabled = true;
-  console.log('calendars[0]', calendars[0]); // flatpickr
+  console.log('timeChosen[0]', timeChosen[0]); // undefined
 });
 
 // Drugim argumentem funkcji flatpickr(selector, options)
@@ -105,7 +107,6 @@ function checkChosenDate() {
   } else {
     Notiflix.Notify.info('Now you can click "Start"');
     btnStart.disabled = false;
-    updateTimer(convertMs(timeDiff));
     
     // console.log('checkChosenDate else timeChosen', timeChosen); // 0
     // console.log('timeChosen[0]', timeChosen[0]); //undefined
