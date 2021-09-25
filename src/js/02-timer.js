@@ -69,11 +69,11 @@ const checkChosenDate = () => {
 }
 
 const updateTimer = ({ days, hours, minutes, seconds }) => {
-  daysLeft.innerHTML = days;
+  daysLeft.innerHTML = addLeadingZero(days);
   // console.log('daysLeft', days);
-  hoursLeft.innerHTML = hours;
-  minutesLeft.innerHTML = minutes;
-  secondsLeft.innerHTML = seconds;
+  hoursLeft.innerHTML = addLeadingZero(hours);
+  minutesLeft.innerHTML = addLeadingZero(minutes);
+  secondsLeft.innerHTML = addLeadingZero(seconds);
 }
 
 const clearTimer = ({ days, hours, minutes, seconds }) => {
