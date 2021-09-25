@@ -129,21 +129,24 @@ function addLeadingZero(value) {
   return value.toString().padStart(2, "0");
 }
 
-btnStart.addEventListener('click', () => {
+const startCountdown = () => {
   // timerId = setInterval(changeBgColor, 1000);
-  btnStop.disabled = false;
-  btnStart.disabled = true;
   updateTimer(convertMs(timeDiff));
   console.log('btnStart.addEventListener timeChosen[0]', timeChosen[0]); // undefined
+  btnStop.disabled = false;
+  btnStart.disabled = true;
+};
 
-});
-
-btnStop.addEventListener('click', () => {
+const stopCountdown = () => {
   // timerId = setInterval(changeBgColor, 1000);
+  console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // undefined
   btnStart.disabled = false;
   btnStop.disabled = true;
-  console.log('btnStop.addEventListener timeChosen[0]', timeChosen[0]); // undefined
-});
+};
+
+btnStart.addEventListener('click', startCountdown);
+
+btnStop.addEventListener('click', stopCountdown);
 
 // =====================juz zbedne logi przykladowe================
 // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
