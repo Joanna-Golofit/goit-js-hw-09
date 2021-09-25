@@ -78,7 +78,7 @@ const updateTimer = ({ days, hours, minutes, seconds }) => {
 }
 
 const clearTimer = () => {
-  clearInterval(timerId);
+  // clearInterval(timerId);
   console.log('stopCountdown timerId', timerId);
 
   daysLeft.innerHTML = '00';
@@ -92,12 +92,11 @@ const addLeadingZero = (value) => {
   return value.toString().padStart(2, "0");
 }
 
-// const updateTime = timeChosen => {
-//   timeChosen - timeNow;
-// };
-
 const startCountdown = () => {
-  timerId = setInterval(updateTimer(convertMs(timeDiff)), 1000);
+  timerId = setInterval(() => {
+    timeDiff -= 1000;
+    updateTimer(convertMs(timeDiff))
+  }, 1000);
   console.log('timerId', timerId);
   // updateTimer(convertMs(timeDiff));  //dalam to do interwalu
   console.log('btnStart.addEventListener timeChosen[0]', timeChosen[0]); // ciagle undefined mimo prob przekazania parametru
@@ -112,7 +111,7 @@ const stopCountdown = () => {
   clearTimer();
   btnStart.disabled = false;
   btnStop.disabled = true;
-  // clearInterval(timerId);
+  clearInterval(timerId);
 };
 
 const convertMs = (ms) => {
