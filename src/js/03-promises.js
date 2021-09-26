@@ -1,5 +1,15 @@
 import Notiflix from 'notiflix';
 
+ Notiflix.Notify.init({
+   rtl: true,
+   position: 'right-bottom',
+   borderRadius: '30px',
+   width: '400px',
+   fontSize: '20px',
+   distance: '15px',
+   cssAnimationDuration:	'8000',
+ }); 
+
 const btnSubmit = document.querySelector('button[type="submit"]');
 const inputDelay = document.querySelector('input[name="delay"]');
 const inputStep = document.querySelector('input[name="step"]');
@@ -24,7 +34,7 @@ const createPromise = (position, delay) => {
 
 const createMultiplePromises = e => {
   e.preventDefault();
-  
+
   let delay = Number(inputDelay.value);
   let step = Number(inputStep.value);
   let amount = Number(inputAmount.value);
