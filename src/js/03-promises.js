@@ -23,18 +23,28 @@ import Notiflix from 'notiflix';
 
 // i moje przeksztalcanie:
 
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
-//   if (shouldResolve) {
-//     // Fulfill
-//   } else {
-//     // Reject
-//   }
-// }
+const createPromise = (position, delay) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldResolve = Math.random() > 0.3;
+      if (shouldResolve) {
+        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      } else {
+        reject(`❌ Rejected promise ${position} in ${delay}ms`);
+      }
+    }, delay);
+  });
+};
 
+createPromise(2, 1500)
+  .then(({ position, delay }) => {
+    Notiflix.Notify.success(data);
+  })
+  .catch(({ position, delay }) => {
+    Notiflix.Notify.failure(error);
+  });
 
-
-// probu pętli
+// proby pętli
 
 // Napisz skrypt, który po wysłaniu formularza wywoła funkcję createPromise(position, delay) tyle razy, ile wprowadzono w pole amount
 
