@@ -1,25 +1,23 @@
 import Notiflix from 'notiflix';
 
-// to dostalismy:
+const btnSubmit = document.querySelector('button[type="submit"]');
+const inputDelay = document.querySelector('input[name="delay"]');
+const inputStep = document.querySelector('input[name="step"]');
+const inputAmount = document.querySelector('input[name="amount"]');
 
-//  to jest wnetrze:
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
-//   if (shouldResolve) {
-//     // Fulfill
-//   } else {
-//     // Reject
-//   }
-// }
+btnSubmit.addEventListener("submit", createMultiplePromises);
 
-// a to przykladowe wywolanie:(?)
-// createPromise(2, 1500)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
+const createMultiplePromises = (e) => {
+  e.preventDefault();
+
+  let delay = Number(inputDelay.value);
+  let step = Number(inputStep.value);
+  let amount = Number(inputAmount.value);
+
+  for (let i = 0; i < amount; i++) {
+    createPromise(i, delay + step);
+  }
+}
 
 // i moje przeksztalcanie:
 
@@ -48,8 +46,8 @@ createPromise({ position, delay })
 
 // Napisz skrypt, który po wysłaniu formularza wywoła funkcję createPromise(position, delay) tyle razy, ile wprowadzono w pole amount
 
-// for (let i = 0; i <= amount; i++) {
-//   createPromise(position, delay);
+// for (let i = 0; i < amount; i++) {
+//   createPromise(i, delay+step);
 // }
 
 
@@ -60,6 +58,30 @@ createPromise({ position, delay })
 
 
   // *************** gromadzenie danych ***********************
+
+
+// **************** to dostalismy: ****************
+
+//  to jest wnetrze:
+// function createPromise(position, delay) {
+//   const shouldResolve = Math.random() > 0.3;
+//   if (shouldResolve) {
+//     // Fulfill
+//   } else {
+//     // Reject
+//   }
+// }
+
+// a to przykladowe wywolanie:(?)
+// createPromise(2, 1500)
+//   .then(({ position, delay }) => {
+//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   })
+//   .catch(({ position, delay }) => {
+//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+//   });
+// **************** to dostalismy - end ****************
+
 
   // const promise = new Promise((resolve, reject) => {
   //   // Asynchronous operation
