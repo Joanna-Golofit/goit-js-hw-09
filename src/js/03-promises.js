@@ -5,19 +5,7 @@ const inputDelay = document.querySelector('input[name="delay"]');
 const inputStep = document.querySelector('input[name="step"]');
 const inputAmount = document.querySelector('input[name="amount"]');
 
-btnSubmit.addEventListener("submit", createMultiplePromises);
-
-const createMultiplePromises = (e) => {
-  e.preventDefault();
-
-  let delay = Number(inputDelay.value);
-  let step = Number(inputStep.value);
-  let amount = Number(inputAmount.value);
-
-  for (let i = 0; i < amount; i++) {
-    createPromise(i, delay + step);
-  }
-}
+ 
 
 // i moje przeksztalcanie:
 
@@ -34,13 +22,39 @@ const createPromise = (position, delay) => {
   });
 };
 
-createPromise({ position, delay })
-  .then(({ position, delay }) => {
-    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
+const createMultiplePromises = e => {
+  e.preventDefault();
+  
+  let delay = Number(inputDelay.value);
+  let step = Number(inputStep.value);
+  let amount = Number(inputAmount.value);
+
+  for (let position = 1; position <= amount; position++) {
+    console.log('position', position);
+    console.log('delay', delay);
+    console.log('amount', amount);
+    console.log('step', step);
+    console.log('****');
+    createPromise(position, delay)
+      .then(({ position, delay }) => {
+        Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+  delay += step;
+  }
+};
+
+// createPromise({ position, delay })
+//   .then(({ position, delay }) => {
+//     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   })
+//   .catch(({ position, delay }) => {
+//     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+//   });
+
+btnSubmit.addEventListener('click', createMultiplePromises);
 
 // proby pętli
 
@@ -50,15 +64,7 @@ createPromise({ position, delay })
 //   createPromise(i, delay+step);
 // }
 
-
-
-
-
-
-
-
-  // *************** gromadzenie danych ***********************
-
+// *************** gromadzenie danych ***********************
 
 // **************** to dostalismy: ****************
 
@@ -82,10 +88,9 @@ createPromise({ position, delay })
 //   });
 // **************** to dostalismy - end ****************
 
-
-  // const promise = new Promise((resolve, reject) => {
-  //   // Asynchronous operation
-  // });
+// const promise = new Promise((resolve, reject) => {
+//   // Asynchronous operation
+// });
 
 // -
 // let isSuccess = true;
@@ -157,7 +162,7 @@ createPromise({ position, delay })
 //   });
 // console.log(promise);
 // -
-  
+
 //   const isSuccess = true;
 
 // const promise = new Promise((resolve, reject) => {
