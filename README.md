@@ -4,7 +4,7 @@
 ## General info
 :chart: color-switcher
 
-:chart: countdown-timer
+:moneybag: countdown-timer
 
 :chart: promise-generator
 
